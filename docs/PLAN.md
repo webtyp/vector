@@ -3,8 +3,9 @@ PLAN: "feat: webtyp/vector — math vectorial, arena, top-k"
 TAG: v0.1.0
 EXECUTOR: unassigned
 REVIEWER: none
-STATUS: running
+STATUS: review
 SESSION: 6951935748407137975
+PR: https://github.com/webtyp/vector/pull/1
 ---
 
 > Repositorio nuevo, ya creado. Índice maestro:
