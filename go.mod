@@ -1,3 +1,3 @@
-module github.com/cdvelop/vector
+module webtyp.com/vector
 
 go 1.26.8
