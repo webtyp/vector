@@ -3,7 +3,8 @@ PLAN: "feat: webtyp/vector — math vectorial, arena, top-k"
 TAG: v0.1.0
 EXECUTOR: unassigned
 REVIEWER: none
-REPO: webtyp/vector
+STATUS: running
+SESSION: 6951935748407137975
 ---
 
 > Repositorio nuevo, ya creado. Índice maestro:
