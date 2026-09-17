@@ -2,20 +2,22 @@
 
 package vector
 
-import (
-	"encoding/binary"
-	"math"
-)
+import "math"
 
 func encodeFloatsLE(dst []byte, src []float32) {
 	for i, f := range src {
-		binary.LittleEndian.PutUint32(dst[i*4:], math.Float32bits(f))
+		bits := math.Float32bits(f)
+		dst[i*4+0] = byte(bits)
+		dst[i*4+1] = byte(bits >> 8)
+		dst[i*4+2] = byte(bits >> 16)
+		dst[i*4+3] = byte(bits >> 24)
 	}
 }
 
 func decodeFloatsLE(dst []float32, src []byte) {
 	for i := range dst {
-		dst[i] = math.Float32frombits(binary.LittleEndian.Uint32(src[i*4:]))
+		bits := uint32(src[i*4+0]) | uint32(src[i*4+1])<<8 | uint32(src[i*4+2])<<16 | uint32(src[i*4+3])<<24
+		dst[i] = math.Float32frombits(bits)
 	}
 }
 

@@ -1,13 +1,10 @@
 package vector
 
-import (
-	"errors"
-	"fmt"
-)
+import "webtyp.com/fmt"
 
 var (
-	ErrBufferTooShort = errors.New("buffer too short")
-	ErrInvalidCount   = errors.New("invalid count or slice size")
+	ErrBufferTooShort = fmt.Err("vector: buffer too short")
+	ErrInvalidCount   = fmt.Err("vector: invalid count or slice size")
 )
 
 // ByteLen returns the encoded size of a dim-element vector: dim*4.
@@ -35,7 +32,7 @@ func Decode(dst []float32, src []byte) (int, error) {
 	n := len(dst)
 	needed := ByteLen(n)
 	if len(src) < needed {
-		return 0, fmt.Errorf("%w: src length %d < needed %d", ErrBufferTooShort, len(src), needed)
+		return 0, fmt.Err("vector: buffer too short, src length", len(src), "needed", needed)
 	}
 	decodeFloatsLE(dst, src[:needed])
 	return n, nil
@@ -57,7 +54,7 @@ func (a *Arena) FromBytes(src []byte, count int) error {
 	}
 	needed := ByteLen(count * a.dim)
 	if len(src) < needed {
-		return fmt.Errorf("%w: src length %d < needed %d", ErrBufferTooShort, len(src), needed)
+		return fmt.Err("vector: buffer too short, src length", len(src), "needed", needed)
 	}
 
 	totalFloats := count * a.dim

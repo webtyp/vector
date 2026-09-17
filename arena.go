@@ -1,14 +1,13 @@
 package vector
 
-import (
-	"errors"
-	"fmt"
-)
+import "webtyp.com/fmt"
 
+// Sentinel errors for the simple, detail-free cases — matching the convention
+// used across storage.ErrNoRows / orm.ErrNotFound / rbac.ErrNotFound.
 var (
-	ErrDimensionMismatch = errors.New("vector dimension mismatch")
-	ErrIndexOutOfBounds  = errors.New("index out of bounds")
-	ErrInvalidDimension  = errors.New("dimension must be greater than zero")
+	ErrDimensionMismatch = fmt.Err("vector: dimension mismatch")
+	ErrIndexOutOfBounds  = fmt.Err("vector: index out of bounds")
+	ErrInvalidDimension  = fmt.Err("vector: dimension must be greater than zero")
 )
 
 // Arena is a contiguous block of N × Dim float32 values. Vector i occupies
@@ -63,7 +62,7 @@ func (a *Arena) Append(v []float32) (int, error) {
 		return -1, ErrInvalidDimension
 	}
 	if len(v) != a.dim {
-		return -1, fmt.Errorf("%w: expected %d, got %d", ErrDimensionMismatch, a.dim, len(v))
+		return -1, fmt.Err("vector: dimension mismatch, expected", a.dim, "got", len(v))
 	}
 
 	idx := a.n
@@ -97,7 +96,7 @@ func (a *Arena) Set(i int, v []float32) error {
 		return ErrIndexOutOfBounds
 	}
 	if len(v) != a.dim {
-		return fmt.Errorf("%w: expected %d, got %d", ErrDimensionMismatch, a.dim, len(v))
+		return fmt.Err("vector: dimension mismatch, expected", a.dim, "got", len(v))
 	}
 
 	start := i * a.dim
